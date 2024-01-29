@@ -1,7 +1,6 @@
-// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, use_key_in_widget_constructors, library_private_types_in_public_api
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,13 +10,51 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   bool _obscureText = true;
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  Future<void> _checkCredentials(BuildContext context) async {
+    final String apiUrl = 'your_node_api_login_endpoint'; // Replace with your actual API endpoint
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: {
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        // Handle successful login response, e.g., store tokens and navigate to the next screen
+        print('Login successful: ${responseData['token']}');
+        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+      } else {
+        // Handle unsuccessful login response
+        print('Login failed: ${response.body}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid credentials'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (error) {
+      // Handle connection errors or other exceptions
+      print('Error: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -115,24 +152,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _checkCredentials(BuildContext context) {
-    // Replace this with your authentication logic
-    // For example, you can check if the email and password are valid
-    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-     // Navigator.push(
-        //context,
-       // MaterialPageRoute(builder: (context) => const MyHomePage()),
-      //);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Invalid credentials'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
   Widget _buildNoAccountText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,10 +162,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         GestureDetector(
           onTap: () {
-           // Navigator.push(
-             // context,
-              //MaterialPageRoute(builder: (context) => const RegistrationPage()),
-         //   );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const RegistrationPage()),
+            // );
           },
           child: const Text(
             'Sign up',
