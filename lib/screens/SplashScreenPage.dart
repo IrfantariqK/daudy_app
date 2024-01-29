@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:daudy_app/screens/ChatPage.dart';
 import 'package:daudy_app/screens/LoginPage.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       // Navigate to the home page after 4 seconds
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => ChatPage()),
       );
     });
   }
