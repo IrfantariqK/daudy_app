@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:daudy_app/screens/RegistrationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -162,10 +163,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         GestureDetector(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const RegistrationPage()),
-            // );
+           Navigator.push(
+             context,
+             MaterialPageRoute(builder: (context) =>  RegistrationPage()),
+            );
           },
           child: const Text(
             'Sign up',
