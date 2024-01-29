@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         // Handle unsuccessful login response
         print('Login failed: ${response.body}');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Invalid credentials'),
             backgroundColor: Colors.red,
           ),
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
       // Handle connection errors or other exceptions
       print('Error: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('An error occurred'),
           backgroundColor: Colors.red,
         ),
