@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:daudy_app/screens/ChatPage.dart';
-import 'package:daudy_app/screens/LoginPage.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatefulWidget {
